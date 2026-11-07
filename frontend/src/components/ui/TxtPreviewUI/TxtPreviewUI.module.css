@@ -1,0 +1,179 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Диалогов может быть много — в отличие от CSV скроллим всю страницу
+     (как dashboard/managers), чтобы пролистать все карточки и дойти до кнопок */
+  overflow-y: auto;
+}
+
+.header {
+  margin-bottom: clamp(16px, 3.1vw, 40px);
+  flex-shrink: 0;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* Растёт по числу карточек и растит страницу — прокрутка на .page.
+   min-height удерживает футер у низа экрана, когда диалогов мало.
+   flex-shrink: 0 — чтобы .body не сжимался ниже своего контента в тесном
+   flex-столбце (иначе карточки вылезают за его границу на кнопки). */
+.body {
+  flex-shrink: 0;
+  min-height: calc(100vh - 450px);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: clamp(16px, 2.1vw, 40px);
+}
+
+.dialogs {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+/* На небольших экранах 3 колонки делают карточки слишком узкими — 2 колонки */
+@media (max-width: 1540px) {
+  .dialogs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Правая колонка (инфо + маскирование) держится в поле зрения при прокрутке.
+   Фикс-ширина 240px — иначе переиспользуемая csv.infoCard (width: 100%)
+   растягивается на всю ширину и сжимает карточки диалогов. */
+.infoSticky {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  flex-shrink: 0;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--color-border-strong);
+  border-radius: 28px;
+  padding: 20px 24px;
+  background: var(--background-color);
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #1c172d;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Раскрытый диалог: ограничиваем высоту и включаем скролл внутри карточки.
+   min-height: 0 обязателен — иначе flex-элемент раздувается по контенту
+   и max-height игнорируется (скролла нет). */
+.messagesScroll {
+  max-height: 340px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.timestamp {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text);
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+/* Анимация «открывания» диалога — сообщения ниже 3-го проявляются сверху вниз */
+@keyframes txtMsgIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msgReveal {
+  animation: txtMsgIn 0.28s ease both;
+}
+
+.toggle {
+  align-self: center;
+  margin-top: 18px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle:hover {
+  color: var(--color-text);
+}
+
+/* Кнопки в обычном потоке, под карточками: мало диалогов — прижаты к низу
+   страницы (за счёт min-height у .body), много — доступны прокруткой вниз. */
+.footer {
+  flex-shrink: 0;
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}

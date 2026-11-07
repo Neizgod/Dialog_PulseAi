@@ -1,0 +1,476 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Без скролла: контент компактный и помещается. .content с естественной
+     высотой (не flex: 1) не сжимается ниже себя, поэтому не налезает на кнопки. */
+  overflow: hidden;
+}
+
+.header {
+  margin-bottom: clamp(16px, 2.4vw, 32px);
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* ===== Стратегия ===== */
+.strategySection {
+  flex-shrink: 0;
+}
+
+.sectionLabel {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 14px;
+}
+
+.strategyRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.strategyDesc {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  max-width: 460px;
+  line-height: 1.45;
+}
+
+/* Нативный select в стиле приложения */
+.select {
+  appearance: none;
+  background: var(--background-light-color);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 36px 10px 14px;
+  font-size: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%239b9ba3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s ease;
+}
+
+.select:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.select option {
+  background-color: rgb(16, 14, 27);
+  color: var(--color-text);
+}
+
+.strategySelect {
+  flex: 0 0 240px;
+}
+
+/* ===== Сравнение (mode 3): радио ID / Имя ===== */
+.compareGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 2px;
+}
+
+.radioItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.radioMark {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+.radioItem:hover .radioMark {
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.radioMarkActive {
+  border-color: #fff;
+}
+
+.radioMarkActive::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.radioText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radioLabel {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.radioHint {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Разделитель ===== */
+.divider {
+  height: 1px;
+  background: var(--color-divider);
+  margin: clamp(14px, 2vw, 28px) 0 clamp(18px, 2.4vw, 32px);
+  flex-shrink: 0;
+}
+
+/* ===== Контент =====
+   Естественная высота (без flex: 1) — растит страницу, а прокрутка на .page.
+   Так контент не сжимается ниже своей высоты и не налезает на кнопки, а
+   выпадающие меню дропдаунов не обрезаются (в отличие от overflow на контенте). */
+.content {
+  display: flex;
+  gap: clamp(24px, 6vw, 96px);
+  align-items: flex-start;
+}
+
+/* Режим ручного выбора менеджеров: контент занимает всю доступную высоту,
+   чтобы чеклист внутри мог заполнить свободное пространство и переносить
+   варианты в колонки, а не уходить вниз за область видимости. */
+.contentChecklist {
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.rightCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  color: var(--color-text);
+  max-width: 280px;
+  line-height: 1.35;
+}
+
+.fieldSelect {
+  max-width: 260px;
+}
+
+/* Колонки рядом (mode 3) */
+.columnsRow {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* ===== Таблица «Значение / Роль» (modes 1, 2) ===== */
+.valueTable {
+  border: 1px solid var(--color-border-strong);
+  border-radius: 20px;
+  background: var(--background-color);
+  max-width: 460px;
+  transition: opacity 0.2s ease;
+}
+
+.valueTableFaded {
+  opacity: 0.4;
+}
+
+.vtHeader,
+.vtRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.vtHeader {
+  background: var(--background-light-color);
+  border-bottom: 1px solid var(--color-divider);
+  border-radius: 20px 20px 0 0;
+}
+
+.vtHeaderCell {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.vtRow {
+  border-bottom: 1px solid var(--color-divider);
+  min-height: 52px;
+}
+
+.vtRow:last-child {
+  border-bottom: none;
+}
+
+.vtValue {
+  padding: 10px 18px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.vtRole {
+  padding: 8px 14px;
+}
+
+.vtRoleSelect {
+  width: 100%;
+}
+
+/* ===== Чеклист (mode 4) =====
+   Заполняет доступную высоту колонкой, при нехватке места переносит варианты
+   в следующую колонку (равномерно занимает свободное пространство). Скролл
+   (горизонтальный) появляется только если колонок стало больше, чем помещается. */
+.checklist {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  gap: 14px 48px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+/* Квадратный чекбокс с галочкой — как на странице диалогов */
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+.checkItem:hover .checkbox {
+  border-color: var(--color-accent);
+}
+
+.checkbox:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px;
+}
+
+.checkLabel {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.checkCount {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-left: 6px;
+}
+
+/* ===== Прелоадер из 3 точек (как в dialogs) ===== */
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  animation: dotPulse 1s infinite ease-in-out;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.hint {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.error {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--color-error);
+  flex-shrink: 0;
+}
+
+/* ===== Футер ===== */
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: auto;
+  /* На больших экранах ~134px, на невысоких — заметно меньше, чтобы кнопки
+     не выдавливались вверх на таблицу */
+  margin-bottom: clamp(24px, 12vh, 134px);
+  padding-top: clamp(16px, 2.1vw, 40px);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 135px;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 28px;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.backBtn:hover {
+  background: var(--background-button-hover-color);
+}
+
+.backIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  width: 18px;
+  transform: scaleX(-1);
+}
+
+.backIcon img {
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(92%) sepia(34%) saturate(640%)
+    hue-rotate(28deg) brightness(102%) contrast(94%);
+}
+
+.nextBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 28px;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  width: 135px;
+}
+
+.nextBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextBtn span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: 18px;
+}
+
+.nextBtn img {
+  object-fit: contain;
+  display: block;
+}
+
+.nextBtn:hover:not(:disabled) {
+  opacity: 0.85;
+}

@@ -1,0 +1,36 @@
+:root {
+  --font-sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --color-primary: #0c0d17;
+  --color-text: #edebf2;
+  --color-accent: #d3f86b;
+  --color-violet: #3c2d52;
+  --text-accent-color: var(--color-violet);
+
+  --radius-card: 24px;
+  --color-card: #130c204d;
+  --color-border: #2c2c38;
+  --color-border-strong: #464557;
+  --color-divider: #1b172c;
+  --color-text-secondary: #9b9ba3;
+  --color-text-tertiary: #8784aa;
+
+  /* Семантические статусные цвета (совпадают с getScoreColor / бейджами) */
+  --color-error: #ff4b4b;
+  --color-success: #7cc643;
+  --color-warning: #f5c842;
+  --color-info: #92c1ff;
+
+  /* Непрозрачные поверхности (в дополнение к rgba background-* выше) */
+  --color-surface-2: #392d4f;
+  --color-surface-3: #1a192f;
+
+  --background-color: rgba(19, 12, 32, 0.3);
+  --background-light-color: rgba(57, 45, 79, 0.3);
+
+  --background-button-second-color: rgba(20, 45, 98, 0.8);
+  --button-second-color: #92c1ff;
+
+  --background-button-color: rgba(211, 248, 107, 0.1);
+  --background-button-hover-color: rgba(211, 248, 107, 0.2);
+}

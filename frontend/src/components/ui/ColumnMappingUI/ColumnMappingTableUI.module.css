@@ -1,0 +1,337 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  margin-bottom: clamp(16px, 3.1vw, 40px);
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.tableWrapper {
+  border: 1px solid var(--color-border-strong);
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--color-primary);
+  margin-bottom: clamp(16px, 2.1vw, 40px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 337px;
+}
+
+.tableHeader {
+  display: grid;
+  border-radius: 28px 28px 0 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--background-light-color);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.headerCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--color-text);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0 12px;
+  min-height: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.15s ease;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.colName {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colSample {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdownTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 12px;
+  background: var(--background-light-color);
+  border-radius: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+  text-align: left;
+  border: none;
+}
+
+.dropdownTrigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdownTriggerMapped {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  border-color: rgba(196, 255, 0, 0.25);
+}
+
+.dropdownTriggerMapped:hover {
+  background: rgba(196, 255, 0, 0.07);
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: rgb(16, 14, 27);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden auto;
+  max-height: 320px;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  padding: 0;
+}
+
+.dropdownMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Убираем стрелки-кнопки скроллбара сверху и снизу */
+.dropdownMenu::-webkit-scrollbar-button,
+.dropdownMenu::-webkit-scrollbar-button:single-button,
+.dropdownMenu::-webkit-scrollbar-button:vertical:start,
+.dropdownMenu::-webkit-scrollbar-button:vertical:end,
+.dropdownMenu::-webkit-scrollbar-button:start:decrement,
+.dropdownMenu::-webkit-scrollbar-button:end:increment {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.dropdownMenu::-webkit-scrollbar-track {
+  background: transparent;
+  /* Отступ сверху/снизу, чтобы бегунок не заезжал в скруглённые углы меню */
+  margin: 8px 0;
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.dropdownItem {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: left;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+/* Разделитель между пунктами — с отступом 5px от краёв */
+.dropdownItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 0;
+  height: 1px;
+  background: var(--background-light-color);
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dropdownItemActive {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(196, 255, 0, 0.08);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.requirements {
+  font-size: 13px;
+  margin-bottom: clamp(16px, 2.1vw, 40px);
+}
+
+.reqTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.reqList {
+  margin-left: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  list-style: disc;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 135px;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 28px;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.backBtn:hover {
+  background: var(--background-button-hover-color);
+}
+
+.backIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  width: 18px;
+  transform: scaleX(-1);
+}
+
+.backIcon img {
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(92%) sepia(34%) saturate(640%)
+    hue-rotate(28deg) brightness(102%) contrast(94%);
+}
+
+.nextBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 28px;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  width: 135px;
+}
+
+.nextBtn span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  width: 18px;
+}
+
+.nextBtn img {
+  object-fit: contain;
+  display: block;
+}
+
+.nextBtn:hover {
+  opacity: 0.85;
+}

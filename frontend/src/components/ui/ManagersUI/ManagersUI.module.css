@@ -1,0 +1,208 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 40px;
+  padding-bottom: 40px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+.backLink svg {
+  transition: transform 0.2s ease;
+}
+
+.backLink:hover svg {
+  transform: translateX(-3px);
+}
+
+.h1 {
+  font-size: 30px;
+  font-weight: 600;
+  /* Отступ до фильтров = 40px, как на «Загрузках» (18px gap страницы + 22px) */
+  margin-bottom: 22px;
+}
+
+/* ===== Фильтры ===== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  align-items: flex-end;
+  /* отступ от фильтров до сетки карточек = 24px (18 gap страницы + 6) */
+  margin-bottom: 6px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.filterDropdown {
+  width: 100%;
+  --dropdown-radius: 28px;
+}
+
+/* ===== Сетка карточек ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.15s ease;
+}
+
+.card:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.card:disabled {
+  cursor: default;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-surface-3);
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.statValue {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.lost {
+  color: var(--color-error);
+}
+
+.score {
+  color: var(--color-accent);
+}
+
+.scoreMax {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.errorLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.errorValue {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.centerMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

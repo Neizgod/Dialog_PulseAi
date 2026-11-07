@@ -1,0 +1,1093 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 40px;
+  padding-right: 32px;
+  padding-bottom: 40px;
+  /* Уводим вертикальный скроллбар к правому краю экрана (компенсируем padding .main).
+     Контент остаётся на месте за счёт padding-right. */
+  margin-right: -32px;
+}
+
+/* ===== Заголовок ===== */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.reportBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 28px;
+  border: none;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 4px 24px rgba(211, 248, 107, 0.2);
+}
+
+.reportBtn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.reportBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Обёртка кнопки отчёта — якорь для выпадающего окна фильтров */
+.reportWrap {
+  position: relative;
+}
+
+/* Карточка отчёта: кнопка по центру сверху, под ней — фильтры */
+.reportCard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(57, 45, 79, 0.3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  transform-origin: top right;
+  animation: reportCardIn 0.18s ease-out;
+}
+
+@keyframes reportCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Кнопка внутри карточки — по центру, свой размер сохраняет */
+.reportCard .reportBtn {
+  align-self: center;
+}
+
+.reportMenuTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.reportError {
+  margin-top: -10px;
+  font-size: 13px;
+  color: var(--color-error);
+}
+
+.reportGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportPeriod {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Поля даты — равной ширины на всю строку, чтобы дата влезала целиком */
+.reportDate {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* ===== KPI ===== */
+.kpiBar {
+  display: flex;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 28px;
+  background: var(--background-color);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.kpi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 24px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--color-border-strong);
+  text-align: left;
+  cursor: default;
+  transition: background 0.15s ease;
+}
+
+.kpi:last-child {
+  border-right: none;
+}
+
+.kpiClickable {
+  cursor: pointer;
+}
+
+.kpiClickable:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.kpiValue {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.kpiMax {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+
+.kpiLabel {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+}
+
+/* После .kpiValue/.kpiLabel — чтобы перебивать их цвет для error-варианта */
+.kpiError {
+  color: var(--color-error);
+}
+
+.kpiMeter {
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.kpiMeterFill {
+  height: 100%;
+  border-radius: 4px;
+  background: #f5a623;
+}
+
+/* ===== Фильтры ===== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  align-items: flex-end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 150px;
+  max-width: 220px;
+}
+
+/* Дропдауны фильтров (кроме периода): скругление 28px, ширина по группе */
+.filterDropdown {
+  width: 100%;
+  --dropdown-radius: 28px;
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.periodInputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dateInput {
+  background: transparent;
+  border: 1px solid rgba(57, 45, 79, 0.3);
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--color-text);
+  color-scheme: dark;
+  text-transform: uppercase;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.dateInput:hover {
+  border-color: rgba(57, 45, 79, 0.7);
+  background: rgba(57, 45, 79, 0.18);
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Период — натуральная ширина (не сжимается и не ограничивается, как остальные) */
+.periodGroup {
+  flex: 0 0 auto;
+  max-width: none;
+}
+
+.periodDash {
+  color: var(--color-text-secondary);
+}
+
+/* ===== Секции ===== */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.statusesCard {
+  width: 75%;
+}
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 22px 24px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+/* ===== Бары распределения ===== */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+.barRow:disabled {
+  cursor: default;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 32px;
+  border-radius: 16px;
+  padding: 0 14px;
+  flex-shrink: 1;
+  transition: box-shadow 0.15s ease;
+}
+
+/* Подсветка без filter: brightness — он оставляет артефакты перерисовки
+   в Opera. Inset-тень обрезается по border-radius и не создаёт слой. */
+.barRow:hover:not(:disabled) .bar {
+  box-shadow: inset 0 0 0 999px rgba(255, 255, 255, 0.09);
+}
+
+.barWarm {
+  background: hsl(calc(var(--bar-i, 0) * 12), 90%, 58%);
+}
+
+.barViolet {
+  background: var(--color-violet);
+}
+
+.barLabel {
+  font-size: 13px;
+  color: var(--color-text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barViolet .barLabel {
+  color: var(--color-text);
+}
+
+/* Топ ошибок менеджеров (тёплая палитра) — тёмный текст на ярких барах */
+.barWarm .barLabel {
+  color: var(--color-violet);
+}
+
+.barCount {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.barPct {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* ===== Donut ===== */
+.donutBlock {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.donutWrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.donutSvg {
+  width: 180px;
+  height: 180px;
+}
+
+.donutTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 14;
+}
+
+.donutCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.donutTotal {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.donutTotalLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: box-shadow 0.15s ease;
+}
+
+/* См. .barRow:hover — избегаем filter: brightness из-за артефактов в Opera */
+.legendItem:hover:not(:disabled) {
+  box-shadow: inset 0 0 0 999px rgba(255, 255, 255, 0.12);
+}
+
+.legendItem:disabled {
+  cursor: default;
+}
+
+.legendLabel {
+  white-space: nowrap;
+}
+
+.legendCount {
+  font-weight: 600;
+}
+
+.legendPct {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ===== Динамика ===== */
+/* Внешняя карточка (фон «Среднего уровня»); карточка столбцов вложена внутрь */
+.dynamicsRow {
+  display: flex;
+  align-items: stretch;
+  background: rgba(19, 12, 32, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+}
+
+.dynamicsInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  padding: 56px 32px 24px 32px;
+}
+
+.dynamicsScore {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dynamicsScoreMax {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.dynamicsLevel {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.dynamicsHint {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 280px;
+}
+
+.dynamicsHint b {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.dynamicsCard {
+  flex-shrink: 0;
+  width: 793px;
+  max-width: 100%;
+  background: rgba(57, 45, 79, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dynamicsHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.periodDropdown {
+  width: 130px;
+}
+
+.dynamicsBars {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  /* Явная высота — чтобы height:% у заливки столбцов резолвился */
+  height: 260px;
+}
+
+.dynBarCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 8px;
+}
+
+.dynBarValue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-violet);
+}
+
+/* Малое значение: число над столбцом, светлым цветом (внутри не помещается) */
+.dynBarValueAbove {
+  top: auto;
+  bottom: 100%;
+  padding: 0 16px 6px;
+  color: var(--color-text);
+}
+
+/* Трек столбца на всю высоту со штриховкой; заливка снизу — по баллам */
+.dynBarTrack {
+  flex: 1;
+  width: 100%;
+  max-width: 107px;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* Линии 3px снизу-слева вверх-направо (/). Мягкий край убирает «ступеньки» */
+  background: repeating-linear-gradient(
+    -48deg,
+    var(--color-violet) 0,
+    var(--color-violet) 2px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+.dynBarFill {
+  position: relative;
+  width: 100%;
+  background: #c4c2e3;
+  border-radius: 28px 28px 0 0;
+  /* высота (по баллам) задаётся инлайн */
+}
+
+.dynBarDay {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Динамика: 30 дней (узкие столбцы по 24px) ===== */
+.dynamics30 {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dynamicsBars30 {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  height: 230px;
+  overflow-x: auto;
+  padding-top: 22px; /* место для значений над столбцами */
+}
+
+/* Столбцы равномерно заполняют ширину карточки (≈24px на полной ширине, 30 дней) */
+.dynBarCol30 {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+
+.dynBarTrack30 {
+  height: 100%;
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: repeating-linear-gradient(
+    -48deg,
+    var(--color-violet) 0,
+    var(--color-violet) 2px,
+    transparent 3px,
+    transparent 8px
+  );
+}
+
+.dynBarFill30 {
+  position: relative;
+  width: 100%;
+  background: #c4c2e3;
+  border-radius: 6px 6px 0 0;
+  /* высота (по баллам) задаётся инлайн */
+}
+
+/* Значение внутри заливки (сверху) — когда заливка достаточно высокая */
+.dynBarValue30 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-violet);
+  white-space: nowrap;
+}
+
+/* Малое значение: не помещается внутри — выносим над столбцом, светлым цветом */
+.dynBarValue30Above {
+  top: auto;
+  bottom: 100%;
+  padding-top: 0;
+  padding-bottom: 4px;
+  color: var(--color-text);
+}
+
+.dynRange {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+}
+
+.dynEmpty {
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* ===== Диалоги требующие внимания ===== */
+.attentionRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.attentionCard {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 20px 22px;
+  min-height: 150px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.15s ease;
+}
+
+.attentionCard:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.attentionOpen svg {
+  transition: transform 0.2s ease;
+}
+
+.attentionCard:hover .attentionOpen svg {
+  transform: translateX(4px);
+}
+
+.attentionMain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.attentionId {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.attentionTitle {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.attentionManager {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: auto;
+}
+
+.attentionOpen {
+  grid-column: 2;
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ===== Кольцо оценки ===== */
+.ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  justify-self: end;
+}
+
+.ringSvg {
+  width: 64px;
+  height: 64px;
+}
+
+.ringTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 5;
+}
+
+.ringFill {
+  fill: none;
+  stroke: #f5a623;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.ringValue {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===== Менеджеры ===== */
+.managersRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.mgrCard {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.15s ease;
+}
+
+.mgrCard:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.mgrHead {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+
+.mgrAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-surface-3);
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  flex-shrink: 0;
+  font-size: 28px;
+}
+
+.mgrName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.mgrStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mgrStat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mgrStatLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.mgrStatValue {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.mgrLost {
+  color: var(--color-error);
+}
+
+.mgrScore {
+  color: var(--color-accent);
+}
+
+.mgrScoreMax {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.mgrError {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.mgrErrorLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.mgrErrorValue {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.seeAll {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.seeAll:hover:not(:disabled) {
+  color: var(--color-text);
+}
+
+.seeAll svg {
+  transition: transform 0.2s ease;
+}
+
+.seeAll:hover:not(:disabled) svg {
+  transform: translateX(4px);
+}
+
+.seeAll:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.centerMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--color-text-secondary);
+}
+
+/* Пустое состояние: фильтр ничего не нашёл */
+.emptyState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Пустое состояние: вообще нет импортированных диалогов */
+.emptyImport {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.emptyCardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 290px;
+  max-width: 100%;
+}
+
+.emptyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  transition: background 0.3s ease;
+}
+
+.emptyCard:hover {
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.emptyCardIcon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-light-color);
+  border-radius: 20px;
+  color: var(--color-text);
+}
+
+.emptyCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emptyCardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.emptyCardRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.emptyCardDesc {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.emptyCardArrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-accent);
+  transition: transform 0.2s ease;
+}
+
+.emptyCardLink:hover .emptyCardArrow {
+  transform: translateX(4px);
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 1200px) {
+  .kpiBar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .twoCols,
+  .attentionRow,
+  .managersRow {
+    grid-template-columns: 1fr;
+  }
+  .statusesCard {
+    width: 100%;
+  }
+  .dynamicsRow {
+    flex-direction: column;
+  }
+  .dynamicsCard {
+    width: 100%;
+  }
+}

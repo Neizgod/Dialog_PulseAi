@@ -1,0 +1,68 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 12vw, 160px);
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+}
+
+.logo {
+  height: 41px;
+  width: 40px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 37px;
+  margin-bottom: 35px;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.lineDecoration {
+  margin: 0 auto 64px;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.infoItems {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconWrapper {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background-color: var(--color-surface-2)4d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.infoCard {
+  max-width: 343px;
+}

@@ -1,0 +1,169 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  margin-bottom: clamp(20px, 3vw, 40px);
+  flex-shrink: 0;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* Блок ошибки расшифровки */
+.errorBlock {
+  margin-bottom: 22px;
+  flex-shrink: 0;
+}
+
+.errorTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-error);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.errorTitle img {
+  width: 22px;
+  height: 22px;
+}
+
+.errorHint {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* Строка прогресса: большой процент + полоса */
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.percent {
+  display: flex;
+  align-items: baseline;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.percentError {
+  color: var(--color-error);
+}
+
+.percentSign {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.bar {
+  position: relative;
+  flex: 1;
+  height: 40px;
+  min-width: 0;
+}
+
+/* Штриховка незаполненной части (диагональные полоски) */
+.hatch {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(150, 140, 210, 0.45) 0,
+    rgba(150, 140, 210, 0.45) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+}
+
+.hatchError {
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(255, 75, 75, 0.55) 0,
+    rgba(255, 75, 75, 0.55) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+}
+
+/* Заполненная часть — «пилюля» с градиентом, поверх штриховки */
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #c4c2e3 0%, #8a94ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.fillLabel {
+  font-size: 13px;
+  font-weight: 400;
+  color: #2a2440;
+  white-space: nowrap;
+  padding: 0 14px;
+}
+
+/* Кнопка «Повторить» */
+.retryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 4px 6px;
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: opacity 0.2s ease;
+}
+
+.retryBtn:hover {
+  opacity: 0.85;
+}
+
+.retryBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Футер */
+.footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}

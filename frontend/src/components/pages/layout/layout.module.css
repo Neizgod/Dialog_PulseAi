@@ -1,0 +1,26 @@
+.layout {
+  display: flex;
+  position: relative;
+  /* Фиксируем высоту вьюпорта: сайдбар всегда слева, прокручивается только .main */
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  /* По умолчанию страницы вписываются в экран без скролла. Прокрутку включают
+     сами страницы, которым она нужна (дашборд, карточка диалога, менеджеры). */
+  overflow: hidden;
+  padding: 32px;
+}
+
+
+.sun {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  filter: blur(6px);
+}

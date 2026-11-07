@@ -1,0 +1,368 @@
+/* Специфика отчёта. Общие блоки (page, header, kpi, donut, бары, секции)
+   переиспользуются из DashboardUI.module.css. */
+
+/* Две независимые колонки карточек (масонри): каждая складывается плотно,
+   заполняя пустое место под короткими карточками */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* Все карточки в колонках — паддинг 16px (диалоги ручного разбора вне колонок).
+   Селектор .col > div перекрывает паддинг d.card / s.block по специфичности. */
+.col > div {
+  padding: 16px;
+}
+
+/* Внутренняя карточка с текстом (краткое резюме / рекомендация) */
+.innerCard {
+  background: linear-gradient(
+    39deg,
+    rgba(19, 12, 32, 0.3) 0%,
+    rgba(121, 196, 106, 0.3) 100%
+  );
+  border-radius: 28px;
+  padding: 16px;
+}
+
+/* Внутренняя карточка рекомендаций — без градиента */
+.innerCardRec {
+  background: rgba(31, 43, 40, 0.4);
+}
+
+@media (max-width: 1100px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Карточка «Статусы диалогов» — на всю ширину колонки (без 75% из дашборда),
+   высота по контенту (минимум под донат и легенду) */
+.statusCard {
+  min-height: 227px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== Предупреждение для state = insufficient_data ===== */
+.warning {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: rgba(245, 200, 66, 0.08);
+  border: 1px solid rgba(245, 200, 66, 0.35);
+}
+.warningTitle {
+  font-weight: 600;
+  color: var(--color-warning);
+}
+.warningText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Универсальный блок-карточка с иконкой в заголовке ===== */
+.block {
+  background: var(--background-color);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Зелёный акцент (резюме, рекомендация) */
+.blockAccent {
+  background: linear-gradient(
+    39deg,
+    rgba(19, 12, 32, 0.3) 0%,
+    rgba(121, 196, 106, 0.3) 100%
+  );
+  border-color: rgba(124, 198, 67, 0.18);
+}
+
+/* Приглушённый фон (темы для развития, скрипт продаж) */
+.blockMuted {
+  background: rgba(35, 39, 48, 0.4);
+}
+.blockHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Заголовок + подзаголовок: подзаголовок на 2px ниже заголовка */
+.blockHeadText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.blockIcon {
+  display: inline-flex;
+  color: var(--color-text-secondary);
+}
+.blockIconAccent {
+  color: var(--color-success);
+}
+.blockIconBlue {
+  color: var(--color-info);
+}
+.blockIconWarn {
+  color: var(--color-warning);
+}
+.blockTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.blockTitleAccent {
+  color: var(--color-success);
+}
+.blockTitleBlue {
+  color: var(--color-info);
+}
+.blockSubtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Текст резюме */
+.summaryText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* Нумерованный список (рекомендации) */
+.numList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+.numList li {
+  list-style: decimal;
+}
+
+/* Маркированный список (темы, скрипт) */
+.bulletList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+.bulletList li {
+  list-style: disc;
+}
+
+/* Нейтральный empty state внутри блока (например, нет тем для развития) */
+.blockEmpty {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* ===== Главные причины потери заявок (аккордеоны) ===== */
+.lossList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lossItem {
+  border: 1px solid rgba(240, 148, 19, 0.3);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(240, 148, 19, 0.04);
+}
+.lossHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: #f09413;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+.lossChevron {
+  transition: transform 0.15s ease;
+}
+.lossItemOpen .lossChevron {
+  transform: rotate(180deg);
+}
+.lossCount {
+  margin-left: auto;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+.lossDesc {
+  padding: 0 14px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Карточки менеджеров (зоны роста) ===== */
+/* Паддинг 16px (перекрывает d.mgrCard по специфичности) */
+.managersRow > button {
+  padding: 16px;
+}
+
+.mgrTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mgrScoreBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.mgrScoreLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.mgrScoreVal {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+.mgrScoreMax {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+.mgrZone {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mgrZoneLabel {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.mgrZoneVal {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* ===== Диалоги для ручного разбора ===== */
+.reviewRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.reviewCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 20px 22px;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.15s ease;
+}
+.reviewCard:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+.reviewId {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.reviewTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.reviewMeta {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.reviewOpen {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-accent);
+  font-size: 14px;
+}
+.reviewCard:hover .reviewOpen svg {
+  transform: translateX(4px);
+}
+.reviewOpen svg {
+  transition: transform 0.2s ease;
+}
+
+/* ===== Состояние ошибки ===== */
+.errorTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-error);
+}
+.errorBlock {
+  max-width: 620px;
+  border: 1px solid rgba(255, 75, 75, 0.3);
+  background: rgba(255, 75, 75, 0.06);
+  border-radius: 24px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.errorList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+.errorList li {
+  list-style: disc;
+}

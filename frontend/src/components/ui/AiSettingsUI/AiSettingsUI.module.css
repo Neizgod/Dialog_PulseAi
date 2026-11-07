@@ -1,0 +1,349 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Разворачиваемся на всю область .main (гасим её padding: 32px), чтобы
+     контент доходил до сайдбара (слева) и до самого низа страницы */
+  margin: -32px;
+  width: calc(100% + 64px);
+  height: calc(100% + 64px);
+  overflow: hidden;
+}
+
+/* Прокручиваемая часть; футер снизу закреплён и не перекрывает сайдбар,
+   т.к. лежит внутри .main (правее сайдбара) */
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  /* +32px компенсируют убранный padding .main, чтобы контент не съехал к краям.
+     Снизу — запас под плавающую кнопку «Сохранить» */
+  padding: clamp(48px, 5vh, 68px) clamp(48px, 6vw, 84px) clamp(88px, 12vh, 120px);
+}
+
+.header {
+  margin-bottom: 48px;
+}
+
+.h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* Две колонки (анализ | аудио) на всю ширину страницы */
+.columns {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(48px, 7vw, 120px);
+  align-items: start;
+}
+
+/* Центральная разделительная линия — на всю высоту контента колонок */
+.columns::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: #191628;
+}
+
+/* Блок (анализ / аудио) */
+.block {
+  min-width: 0;
+}
+
+/* Узкие экраны — колонки в столбик, линию убираем, разделитель сверху */
+@media (max-width: 1100px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .columns::before {
+    display: none;
+  }
+  .blockRight {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+.blockTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.blockDesc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  margin-bottom: 22px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 34px 0 18px;
+}
+
+/* ===== Провайдеры (радио) ===== */
+.providers {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.radioItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.radioItem:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-tertiary);
+}
+
+.radioMark {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+  transition: border-color 0.15s ease;
+}
+
+.radioItem:not(:disabled):hover .radioMark {
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.radioItem:disabled .radioMark {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.radioMarkActive {
+  border-color: var(--color-accent);
+}
+
+.radioMarkActive::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.radioLabel {
+  font-size: 16px;
+}
+
+/* Поля выбранного провайдера */
+.providerFields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 16px 0 4px 32px;
+  max-width: 460px;
+}
+
+/* ===== Текстовые поля (подчёркнутые) ===== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.textInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 2px;
+  font-size: 18px;
+  color: var(--color-text);
+  transition: border-color 0.15s ease;
+}
+
+.textInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.textInput:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+/* ===== Параметры (выпадающие списки) ===== */
+.params {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.paramItem {
+  max-width: 320px;
+}
+
+.paramLabel {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.paramHint {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.paramSelect {
+  width: 320px;
+  --dropdown-radius: 16px;
+}
+
+/* ===== Чекбокс (аудио: использовать ключ анализа) ===== */
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.checkRow:hover .checkbox {
+  border-color: var(--color-accent);
+}
+
+.checkbox:checked {
+  border-color: var(--color-accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d3f86b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+
+.checkLabel {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+/* Инлайновая проверка внутри аудио-блока */
+.inlineCheck {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+/* ===== Плавающая кнопка «Сохранить» (правый нижний угол) ===== */
+.saveFloat {
+  position: absolute;
+  right: clamp(32px, 5vw, 72px);
+  bottom: clamp(28px, 4vh, 44px);
+  z-index: 5;
+}
+
+.status {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.statusValue {
+  font-weight: 500;
+}
+
+.statusSuccess {
+  color: var(--color-success);
+}
+.statusError {
+  color: var(--color-error);
+}
+.statusNeutral {
+  color: var(--color-text-secondary);
+}
+
+.checkBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: opacity 0.2s ease;
+}
+
+.checkBtn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.checkBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.saveBtn {
+  padding: 10px 32px;
+  border-radius: 28px;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.saveBtn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loading {
+  padding: 60px 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}

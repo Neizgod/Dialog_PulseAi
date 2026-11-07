@@ -1,0 +1,672 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 90px;
+  /* Отступ слева, чтобы контент не уходил под кнопку сворачивания сайдбара */
+  padding-left: 40px;
+}
+
+/* ===== Шапка ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+.backLink svg {
+  transition: transform 0.2s ease;
+}
+
+.backLink:hover svg {
+  transform: translateX(-3px);
+}
+
+.navGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.15s ease;
+}
+
+.navBtn:hover:not(:disabled) {
+  color: var(--color-text);
+}
+
+.navBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.navCounter {
+  color: var(--color-text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===== Заголовок диалога + мета (слева) и метрики (справа) ===== */
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 24px;
+  /* 18px gap страницы + 22px = 40px до тела диалога */
+  margin-bottom: 22px;
+}
+
+.titleBlock {
+  flex: 0 1 auto;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/* Мета в 2 строки: Менеджер | Дата / Канал | Статус анализа */
+.meta {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 8px 24px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.meta b {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ===== Метрики (summary-полоса справа) ===== */
+.metrics {
+  flex: 1 1 480px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 28px;
+  background: var(--background-color);
+}
+
+.metric {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 28px;
+}
+
+.metricBordered {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.metricValue {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.scoreMax {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.metricDash,
+.metricDots {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-error);
+  min-height: 24px;
+}
+
+.metricDots {
+  color: var(--color-text-secondary);
+  letter-spacing: 2px;
+}
+
+.hintMark {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  cursor: help;
+}
+
+/* Кастомная подсказка: выходит снизу из «?», треугольником указывает на него */
+.tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -33px;
+  width: 200px;
+  padding: 12px 16px;
+  background: var(--color-surface-2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--color-text);
+  text-align: left;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.hintMark:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Треугольник вверху подсказки, указывающий на «?» */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 28px;
+  border: 7px solid transparent;
+  border-bottom-color: var(--color-surface-2);
+}
+
+.meter {
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 4px;
+  background: currentColor;
+}
+
+/* Цвета вариантов: задают color (а полоска берёт его через currentColor) */
+.vSuccess { color: var(--color-success); }
+.vLime    { color: #d3f86b; }
+.vError   { color: var(--color-error); }
+.vWarning { color: var(--color-warning); }
+.vInfo    { color: var(--button-second-color); }
+.vNeutral { color: var(--color-text-secondary); }
+
+/* ===== Тело: диалог + анализ ===== */
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+/* ===== Лента сообщений ===== */
+.dialogPanel {
+  flex: 0 0 360px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialogTitle {
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+  /* Линия от края до края карточки: растягиваем за padding и возвращаем текст */
+  margin: 0 -20px;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid rgba(57, 45, 79, 0.3);
+  /* 16px до линии, линия 1px, 24px после неё до чата */
+  margin-bottom: 24px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.msgRow {
+  display: flex;
+}
+
+.msgRight {
+  justify-content: flex-end;
+}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 14px;
+}
+
+.bubbleClient {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom-left-radius: 4px;
+}
+
+.bubbleManager {
+  background: rgba(146, 193, 255, 0.1);
+  border-bottom-right-radius: 4px;
+  text-align: right;
+}
+
+.bubbleHighlight {
+  background: rgba(211, 248, 107, 0.16);
+  outline: 1px solid rgba(211, 248, 107, 0.35);
+}
+
+.bubbleRole {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.bubbleText {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text);
+  /* Длинные сообщения/слова переносим внутри пузырька, без выхода за край */
+  overflow-wrap: anywhere;
+}
+
+/* ===== Область анализа ===== */
+.analysisArea {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.analysisTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.analysisErrorTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-error);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* ===== Блок-карточка ===== */
+.block {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  background: var(--background-color);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.blockWide {
+  grid-column: 1 / -1;
+}
+
+.blockHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.blockIcon {
+  display: inline-flex;
+}
+
+.blockTitle {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.blockText {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+/* Текст в градиентной плашке (резюме, рекомендация, улучшенный ответ) */
+.blockTextGradient {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text);
+  padding: 16px 18px;
+  border-radius: 28px;
+  background: linear-gradient(
+    39deg,
+    rgba(19, 12, 32, 0.3) 0%,
+    rgba(121, 196, 106, 0.3) 100%
+  );
+}
+
+/* Тоны блоков — цвет иконки и заголовка */
+/* Тон карточки красит иконку, заголовок и подписи аккордеонов (но не текст
+   раскрытой подсказки — .accBody остаётся приглушённым) */
+.tone_neutral .blockIcon,
+.tone_neutral .blockTitle,
+.tone_neutral .accLabel { color: #9b8cff; }
+.tone_accent .blockIcon,
+.tone_accent .blockTitle,
+.tone_accent .accLabel { color: var(--color-accent); }
+.tone_warning .blockIcon,
+.tone_warning .blockTitle,
+.tone_warning .accLabel { color: var(--color-warning); }
+.tone_info .blockIcon,
+.tone_info .blockTitle,
+.tone_info .accLabel { color: #8fb0d8; }
+.tone_danger .blockIcon,
+.tone_danger .blockTitle,
+.tone_danger .accLabel { color: var(--color-error); }
+
+.tone_danger {
+  border-color: rgba(255, 75, 75, 0.25);
+  background: rgba(255, 75, 75, 0.04);
+}
+
+.reasonList {
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* ===== Аккордеоны (возражения / ошибки) ===== */
+.accList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acc {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.accHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--color-text);
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+
+.accHead:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.accHead:hover:not(:disabled) .accChevron {
+  color: var(--color-text);
+}
+
+.accHead:disabled {
+  cursor: default;
+}
+
+.accChevron {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  /* Закрыто — стрелка вниз (можно раскрыть) */
+  transform: rotate(0deg);
+  transition: transform 0.18s ease;
+}
+
+.accOpen .accChevron {
+  /* Открыто — стрелка вверх (можно свернуть) */
+  transform: rotate(180deg);
+}
+
+.accLabel {
+  flex: 1;
+}
+
+.accBody {
+  padding: 10px 12px 12px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Примеры из диалога (evidence) ===== */
+.evidence {
+  display: flex;
+  flex-direction: column;
+}
+
+.evidenceRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.evidenceRow:last-child {
+  border-bottom: none;
+}
+
+.evidenceQuote {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Автор реплики (Клиент: / Менеджер:) */
+.evidenceSender {
+  font-weight: 500;
+}
+
+.evidenceArrow {
+  color: var(--color-text-tertiary);
+}
+
+.evidenceReason {
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+/* ===== Центрированные состояния (pending / processing) ===== */
+.centerState {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.ring {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-accent);
+}
+
+.ringSpin {
+  animation: spin 1.2s linear infinite;
+}
+
+.inlineRun {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 9px 18px;
+  border-radius: 24px;
+  border: none;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.inlineRun:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.inlineRun:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorBlock {
+  max-width: 520px;
+}
+
+.centerMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* ===== FAB «Повторить / Запустить анализ» ===== */
+.fab {
+  position: fixed;
+  right: 40px;
+  bottom: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 28px;
+  border: none;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.fab:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.fab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 1100px) {
+  .body {
+    flex-direction: column;
+  }
+  .dialogPanel {
+    flex: none;
+    width: 100%;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

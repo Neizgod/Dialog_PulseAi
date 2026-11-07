@@ -1,0 +1,13 @@
+.background {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.sun {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  filter: blur(6px);
+}

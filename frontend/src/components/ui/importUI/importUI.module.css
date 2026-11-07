@@ -1,0 +1,170 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.header {
+  width: 100%;
+  max-width: 800px;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.headerDescription {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin-bottom: 55px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 247px;
+  padding-bottom: 35px;
+  transition: background 0.3s ease;
+}
+
+.card:hover {
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.cardBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 105, 36, 0.8);
+  color: #91ff9b;
+  border-radius: 20px;
+  padding: 2px 12px;
+  font-size: 13px;
+}
+
+.cardBadge.orange {
+  background: rgba(143, 77, 15, 0.8);
+  color:  #ffd491;
+}
+
+.cardBadge.orange img {
+  filter: brightness(0) saturate(100%) invert(84%) sepia(35%)
+    saturate(620%) hue-rotate(340deg) brightness(108%) contrast(102%);
+}
+
+.cardBadge img {
+  width: 16px;
+  height: 16px;
+}
+
+.cardBadge img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(85%) sepia(30%) saturate(500%)
+    hue-rotate(80deg) brightness(110%);
+}
+
+.cardIcon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-light-color);
+  border-radius: 20px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.cardIcon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cardDescription {
+  font-size: 13px;
+  font-weight: 300;
+  flex: 1;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 14px;
+  width: fit-content;
+}
+
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.icon {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.cardLink:hover .icon {
+  transform: translateX(4px);
+}
+
+.icon img {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+  display: block;
+}
+
+.formats {
+  color: var(--color-text-tertiary);
+  font-weight: 300;
+  font-size: 12px;
+  width: 100%;
+  max-width: 800px;
+}

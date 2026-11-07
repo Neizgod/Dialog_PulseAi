@@ -1,0 +1,260 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  gap: clamp(20px, 3vh, 36px);
+}
+
+.content {
+  margin: 134px 0 auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  flex-shrink: 0;
+  margin-bottom: 40px;
+}
+
+.checkBadge {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  /* border: 6px solid rgba(211, 248, 107, 0.1); */
+
+  background: #d3f86b;
+  background-clip: padding-box;
+  box-shadow:
+    0 0 0 6px rgba(211, 248, 107, 0.12),
+    0 0 0 12px rgba(188, 255, 0, 0.08)
+}
+
+.checkBadge svg{
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  color: var(--color-violet);
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+/* Статистика */
+.statsRow {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 28px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--background-color);
+  margin-bottom: 40px;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 28px;
+  border-right: 1px solid var(--color-border-strong);
+}
+
+.statItem:last-child {
+  border-right: none;
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.statValueError {
+  color: #f87171;
+}
+
+.statLabel {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+.statLabelError {
+  color: #f87171;
+}
+
+/* Карточки */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+.cardsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Карточка-действие (кнопка): сброс стилей кнопки до вида ссылки-карточки */
+.cardButton {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 20px;
+  transition: background 0.3s ease;
+  height: 176px;
+}
+
+.card:hover {
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-light-color);
+  border-radius: 20px;
+}
+
+.cardIcon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cardDescription {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardArrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: auto;
+
+  width: 32px;
+  height: 32px;
+
+  transition: transform 0.2s ease;
+}
+.cardLink:hover .cardArrow {
+  transform: translateX(4px);
+}
+
+.cardArrow img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(92%) sepia(34%) saturate(640%)
+    hue-rotate(28deg) brightness(102%) contrast(94%);
+}
+
+/* Кнопка снизу */
+.uploadMoreBtn {
+  align-self: flex-end;
+  margin-top: auto;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+  padding: 8px 24px;
+  border-radius: 28px;
+  transition: background 0.2s ease;
+}
+
+.uploadMoreBtn:hover {
+  background: var(--background-button-hover-color);
+}

@@ -1,0 +1,112 @@
+.page {
+  padding: clamp(24px, 4.3vh, 55px) max(20px, min(140px, 8vw))
+    clamp(20px, 3.1vh, 40px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  margin-bottom: clamp(20px, 3vw, 40px);
+  flex-shrink: 0;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-secondary);
+}
+
+/* Карточка-таблица. Без overflow: hidden — иначе меню дропдауна последней
+   строки обрезается; скруглённые углы обеспечиваем радиусами шапки/строк. */
+.tableCard {
+  max-width: 760px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 20px;
+  background: var(--background-color);
+  flex-shrink: 0;
+}
+
+.thead,
+.trow {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 240px;
+  align-items: center;
+}
+
+.thead {
+  background: var(--background-light-color);
+  border-bottom: 1px solid var(--color-divider);
+  border-radius: 20px 20px 0 0;
+}
+
+.thLeft,
+.thCenter {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.thLeft {
+  text-align: left;
+}
+
+.thCenter {
+  text-align: center;
+}
+
+.trow {
+  border-bottom: 1px solid var(--color-divider);
+  min-height: 56px;
+}
+
+.trow:last-child {
+  border-bottom: none;
+}
+
+.tdAuthor {
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.tdSample {
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.tdRole {
+  padding: 8px 14px;
+}
+
+.roleSelect {
+  width: 100%;
+}
+
+.loadingRow {
+  padding: 20px 18px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.error {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--color-error);
+  flex-shrink: 0;
+}
+
+/* Кнопки «Назад/Далее» прижаты к низу страницы */
+.footer {
+  margin-top: auto;
+}

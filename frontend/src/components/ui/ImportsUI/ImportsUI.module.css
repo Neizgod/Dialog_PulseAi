@@ -1,0 +1,262 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  overflow-y: auto;
+  /* Только вертикальный скролл — горизонтального быть не должно */
+  overflow-x: hidden;
+  padding-left: 40px;
+  padding-right: 32px;
+  padding-bottom: 90px;
+  /* Скроллбар к правому краю экрана (компенсируем padding .main) */
+  margin-right: -32px;
+}
+
+/* 20px gap страницы + 20px = 40px до карточек */
+.header {
+  margin-bottom: 20px;
+}
+
+.h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+/* ===== Фильтры ===== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  align-items: flex-end;
+}
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 155px;
+}
+.filterLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.filterDropdown {
+  width: 100%;
+  --dropdown-radius: 28px;
+}
+
+/* ===== Сетка карточек ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 190px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: var(--background-color);
+  padding: 22px 24px;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.15s ease;
+}
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(
+    147deg,
+    rgba(80, 50, 134, 0.3) 0%,
+    rgba(34, 19, 60, 0.3) 20%,
+    rgba(19, 12, 32, 0.3) 38.33%,
+    rgba(34, 19, 60, 0.3) 70%,
+    rgba(80, 50, 134, 0.3) 100%
+  );
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.fileName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+  /* Длинное имя переносится на несколько строк, а не уходит за карточку */
+  overflow-wrap: anywhere;
+}
+.date {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Бейдж статуса */
+.badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge svg {
+  width: 13px;
+  height: 13px;
+}
+.badge_success {
+  color: var(--color-success);
+  background: rgba(124, 198, 67, 0.12);
+}
+.badge_info {
+  color: var(--color-info);
+  background: rgba(146, 193, 255, 0.12);
+}
+.badge_error {
+  color: var(--color-error);
+  background: rgba(255, 75, 75, 0.12);
+}
+.badge_warning {
+  color: var(--color-warning);
+  background: rgba(245, 200, 66, 0.12);
+}
+.badge_neutral {
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Кольцо прогресса / оценки */
+.ring {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+.ringSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ringTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 6;
+}
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+.ringSub {
+  font-size: 12px;
+  margin-left: 1px;
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+.count {
+  display: flex;
+  flex-direction: column;
+}
+.countValue {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1;
+}
+.countLabel {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+.openLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-accent);
+  font-size: 14px;
+}
+.openLink svg {
+  transition: transform 0.2s ease;
+}
+.card:hover .openLink svg {
+  transform: translateX(4px);
+}
+
+/* Состояния */
+.centerMessage {
+  /* Занимаем всю оставшуюся высоту и центрируем текст по вертикали и горизонтали */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* FAB «Загрузить файл» */
+.fab {
+  position: fixed;
+  right: 48px;
+  bottom: 32px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 28px;
+  border: none;
+  background: var(--color-accent);
+  color: var(--text-accent-color);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(211, 248, 107, 0.25);
+  transition: opacity 0.2s ease;
+}
+.fab:hover {
+  opacity: 0.88;
+}
